@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block menu %}
+                <nav class="mdl-navigation mdl-typography--body-1-force-preferred-font">
+                    <a class="mdl-navigation__link" href="{% url 'index' %}">Produtos</a>
+                    <a class="mdl-navigation__link is-active" href="{% url 'vendas' %}">Vendas</a>
+                    <a class="mdl-navigation__link" href="{% url 'fornecedores' %}">Fornecedores</a>
+                    <a class="mdl-navigation__link" href="{% url 'clientes' %}">Clientes</a>
+                    <a class="mdl-navigation__link" href="{% url 'entrar' %}">Login</a>
+                    <a class="mdl-navigation__link" href="{% url 'sair' %}">sair</a>
+                </nav>
+{% endblock %}
+
+{% block conteudo %}
+
+  <!-- Square card -->
+  <style>
+  .demo-card-square.mdl-card {
+    width: 55%;
+    height: 700px;
+    top: 50px;
+    left: 22%;
+    margin-bottom: 5%;
+    position: relative;
+  }
+  .demo-card-square > .mdl-card__title {
+    color: #fff;
+    background:
+      url('{{ venda.produto.foto.url }}') bottom 50% right 50% no-repeat #46B6AC;
+  }
+  h5{
+    color: #000000;
+  }
+  </style>
+<form class="ui form" action="" method="post" id="form" role="form">
+            {% csrf_token %}
+  <div class="demo-card-square mdl-card mdl-shadow--2dp">
+    <div class="mdl-card__title mdl-card--expand">
+      <h2 class="mdl-card__title-text">{{ venda.produto.nome }}</h2>
+    </div>
+    <div class="mdl-card__supporting-text">
+        <b><h4>Cliente:</h5></b>
+                      <h5>&nbsp;&nbsp;&nbsp;&nbsp;{{ venda.fornecedor.nome }}</h4>
+        <b><h4>Descrição:</h4></b>
+                      <h5>&nbsp;&nbsp;&nbsp;&nbsp;{{ venda.produto.descricao }}</h5>
+        <b><h4>Financeiro:</h4></b>
+                      <h5>&nbsp;&nbsp;&nbsp;&nbsp;Total da compra: {{ venda.produto.valor }}</h5>
+                      <h5>&nbsp;&nbsp;&nbsp;&nbsp;Parcelas restantes: {{ venda.parcela }}</h5>
+    </div>
+    <br>
+
+    <div class="mdl-card__actions mdl-card--border">
+      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="submit">
+        Pagar Parcela
+      </button>
+    </div>
+  </div>
+  <br>
+</form>
+{% endblock %}

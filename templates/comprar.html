@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block menu %}
+                <nav class="mdl-navigation mdl-typography--body-1-force-preferred-font">
+                    <a class="mdl-navigation__link" href="{% url 'index' %}">Produtos</a>
+                    <a class="mdl-navigation__link is-active" href="{% url 'vendas' %}">Vendas</a>
+                    <a class="mdl-navigation__link" href="{% url 'fornecedores' %}">Fornecedores</a>
+                    <a class="mdl-navigation__link" href="{% url 'clientes' %}">Clientes</a>
+                    <a class="mdl-navigation__link" href="{% url 'entrar' %}">Login</a>
+                    <a class="mdl-navigation__link" href="{% url 'sair' %}">sair</a>
+                </nav>
+                <script language="JavaScript">
+                    function valor(){
+                        if ({{ produto.valor }} > 0) {
+                            var tot = 0;
+                            var totalf = 0;
+                            if (parseInt(document.getElementById('quantidade').value) > 2) {
+
+                                var totalf = (({{ produto.valor }}*document.getElementById('quantidade').value)*4)
+                                document.getElementById('totalfinal').value = totalf;
+                                var tot = totalf/ parseInt(document.getElementById('parcelas').value);
+                                
+                                if ( parseInt(tot) <= 1) {
+                                    document.getElementById('total').value = tot;
+                                }else {
+                                    document.getElementById('total').value =parseInt(tot);
+                                };
+
+                            } else{
+
+                                var totalf = ({{ produto.valor }}*document.getElementById('quantidade').value)
+                                document.getElementById('totalfinal').value = totalf;
+                                var tot = totalf / parseInt(document.getElementById('parcelas').value);
+
+                                if ( parseInt(tot) <= 1) {
+                                    document.getElementById('total').value = tot;
+                                }else {
+                                    document.getElementById('total').value =parseInt(tot);
+                                };
+
+                            };
+
+                            
+                        };
+                    }
+                </script>
+{% endblock %}
+
+{% block conteudo %}
+
+  <!-- Square card -->
+  <style>
+  .demo-card-square.mdl-card {
+    width: 650px;
+    height: 800px;
+    top: 50px;
+    left: 70%;
+    margin-bottom: 10%;
+    position: relative;
+    padding: 0px;
+  }
+  .demo-card-square > .mdl-card__title {
+    color: #fff;
+
+    background:
+      url('{{ produto.foto.url }}') bottom 50% right 50% no-repeat #000;
+  }
+  </style>
+<form class="ui form" action="" method="post" id="form" role="form" oninput="valor();">
+    {% csrf_token %}
+    <div class="demo-card-square mdl-card mdl-shadow--2dp">
+      <div class="mdl-card__title mdl-card--expand">
+        <h2 class="mdl-card__title-text">{{ produto.nome }}</h2>
+      </div>
+      <div class="mdl-card__supporting-text">
+            <h4>Cliente: {{ fornecedor.nome }}</h4>
+            <h4>Preço: R$ {{ produto.valor }}</h4>
+            <h4>Quantidade: </h4>     <input type="number" min="1" max="{{ produto.estoque }}" size="20" name="quantidade" id="quantidade" value="1"/>
+            <h4>Preço Total: R$ </h4> <input type="text" size="20" name="totalfinal" id="totalfinal" value="{{ produto.valor }}" readonly/><br>
+            <h4>Parcelas: </h4>       <input name="parcelas" id="parcelas" type="number" size="2" max="12" min="1"/ value="1"><br>
+            <h4>Preço das parcelas: R$ </h4> <input type="text" size="20" name="total" id="total" value="{{ produto.valor }}" readonly/>
+      </div>
+      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="submit">
+          Comprar
+      </button>
+    </div>
+    <br>
+</form>
+{% endblock %}

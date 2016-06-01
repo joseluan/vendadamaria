@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block menu %}
+    <nav class="mdl-navigation mdl-typography--body-1-force-preferred-font">
+        <a class="mdl-navigation__link is-active" href="{% url 'index' %}">Produtos</a>
+        <a class="mdl-navigation__link" href="{% url 'vendas' %}">Vendas</a>
+        <a class="mdl-navigation__link" href="{% url 'fornecedores' %}">Fornecedores</a>
+        <a class="mdl-navigation__link" href="{% url 'clientes' %}">Clientes</a>
+        <a class="mdl-navigation__link" href="{% url 'entrar' %}">Login</a>
+        <a class="mdl-navigation__link" href="{% url 'sair' %}">sair</a>
+    </nav>
+{% endblock %}
+{% block conteudo %}
+
+<!-- Wide card with share menu button -->
+<style>
+	.demo-card-wide.mdl-card {
+	  top: 80px;
+	  left: 15%;
+	  margin-bottom: 20%;
+	  left: 34%;
+	}
+	.demo-card-wide > .mdl-card__title {
+	  color: #fff;
+	  height: 50%;
+	  background: url("{{ produto.foto.url }}") center / cover;
+	}
+	.demo-card-wide > .mdl-card__menu {
+	  color: #fff;
+	}
+	.demo-card-square{
+		padding: 50px;
+	}
+</style>
+<form action="{% url 'adicionar_produto' %}" method="post" enctype="multipart/form-data">
+	{% csrf_token %}
+    <div class="demo-card-wide mdl-card mdl-shadow--2dp">
+
+    	<div class="mdl-card__title"></div>
+
+	    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="nome">
+	        <input id="id_image" type="file" class="" name="image" value="{{ produto.foto.url }}">
+	    </div><br>
+
+	    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="nome">
+	        <input class="mdl-textfield__input" type="text" id="nome" name="nome" value="{{ produto.nome }}">
+	        <label class="mdl-textfield__label" for="sample3">Nome</label>
+	    </div><br>
+
+	    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="nome">
+	        <input name="valor" id="valor" type="number" size="10" max="999999999" min="0" value="{{ produto.valor }}" />
+	        <label class="mdl-textfield__label" for="sample3">Valor</label>
+	    </div><br>
+
+	    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="nome">
+	        <textarea id="descricao" name="descricao" cols="60"rows="5" type="text">{{ produto.descricao }}</textarea>
+	        <label class="mdl-textfield__label" for="sample3">Descrição</label>
+	    </div><br>
+
+	    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="nome">
+	        <input name="estoque" id="estoque" type="number" size="10" max="999999" min="0" value="{{ produto.estoque }}" />
+	        <label class="mdl-textfield__label" for="sample3">Estoque</label>
+	    </div><br>
+
+	    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="submit">
+	        Editar
+	    </button>
+
+    </div>
+  </form>
+
+{% endblock %}

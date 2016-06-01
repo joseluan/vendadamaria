@@ -1,0 +1,13 @@
+{% load staticfiles %}
+
+<form action="{% url 'adicionar_produto' %}" method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+                <p>
+                    <input id="id_image" type="file" class="" name="image">
+                </p>
+                <input type="submit" value="Submit" />
+      
+            </form>
+  {% for ft in fotos %}
+      <img src="{{ ft.imagens.url }}">  
+  {% endfor %}

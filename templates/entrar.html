@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block menu %}
+                <nav class="mdl-navigation mdl-typography--body-1-force-preferred-font">
+                    <a class="mdl-navigation__link" href="{% url 'index' %}">Produtos</a>
+                    <a class="mdl-navigation__link" href="{% url 'vendas' %}">Vendas</a>
+                    <a class="mdl-navigation__link" href="{% url 'fornecedores' %}">Fornecedores</a>
+                    <a class="mdl-navigation__link" href="{% url 'clientes' %}">Clientes</a>
+                    <a class="mdl-navigation__link  is-active" href="{% url 'entrar' %}">Login</a>
+                    <a class="mdl-navigation__link" href="{% url 'sair' %}">sair</a>
+                </nav>
+{% endblock %}
+
+{% block conteudo %}
+<!-- Wide card with share menu button -->
+<style>
+.demo-card-wide.mdl-card {
+  width: 512px;
+  top: 80px;
+  margin-bottom: 20%;
+  left: 34%;
+}
+.demo-card-wide > .mdl-card__title {
+  color: #fff;
+  height: 176px;
+  background: url("{% static 'imagens/login.jpg' %}") center / cover;
+}
+.demo-card-wide > .mdl-card__menu {
+  color: #fff;
+}
+div#usuario{
+  left: 17%;
+}
+div#senha{
+  left: 17%;
+}
+</style>
+  <form class="ui form" action="" method="post" id="form" role="form">
+  {% csrf_token %}
+    <div class="demo-card-wide mdl-card mdl-shadow--2dp">
+        <div class="mdl-card__title">
+            <h2 class="mdl-card__title-text">Bem vindo, faça o login para proseguir...</h2>
+        </div>
+        <div class="mdl-card__supporting-text">
+              <!-- Textfield with Floating Label -->
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="usuario">
+                <input class="mdl-textfield__input" type="text" id="sample3" name="usuario">
+                <label class="mdl-textfield__label" for="sample3">Usuário...</label>
+            </div><br>
+
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="senha">
+                <input class="mdl-textfield__input" type="password" id="sample4" name="senha">
+                <label class="mdl-textfield__label" for="sample4">Senha...</label>
+            </div><br>
+
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="submit">
+              Entrar
+            </button>
+
+       </div>
+
+    </div>
+  </form>
+
+{% endblock %}

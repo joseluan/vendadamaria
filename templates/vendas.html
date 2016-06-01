@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block menu %}
+                <nav class="mdl-navigation mdl-typography--body-1-force-preferred-font">
+                    <a class="mdl-navigation__link" href="{% url 'index' %}">Produtos</a>
+                    <a class="mdl-navigation__link is-active" href="{% url 'vendas' %}">Vendas</a>
+                    <a class="mdl-navigation__link" href="{% url 'fornecedores' %}">Fornecedores</a>
+                    <a class="mdl-navigation__link" href="{% url 'clientes' %}">Clientes</a>
+                    <a class="mdl-navigation__link" href="{% url 'entrar' %}">Login</a>
+                    <a class="mdl-navigation__link" href="{% url 'sair' %}">sair</a>
+                </nav>
+{% endblock %}
+
+
+{% block conteudo %}
+    <style type="text/css" media="screen">
+        div#produto{
+            position: absolute;
+            width: 50%;
+            left: 10px;
+        }
+        a#adicionar{
+            position: fixed;
+            left: 93%;
+            top: 80%;
+        }
+        .mdl-textfield{
+            margin-left: 2%;
+        }
+    </style>
+  
+    <form class="ui form" action="" method="post" id="form" role="form">
+        {% csrf_token %}
+
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="nome">
+            <input class="mdl-textfield__input" type="text" id="pesquisa" name="pesquisa" type="submit">
+            <label class="mdl-textfield__label" for="sample3">Pesquisar</label>
+        </div><br>
+
+    </form>
+
+<div id="conteudo">
+  <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable">
+        <thead>
+          <tr>
+            <th><h4>Nome</h4></th>
+            <th><h4>Quantidade</h4></th>
+            <th><h4>Preço</h4></th>
+            <th><h4>Parcelas</h4></th>
+            <th><h4>Cancelar</h4></th>
+            <th><h4>Pagar</h4></th>
+          </tr>
+        </thead>
+  {% for venda in vendas %}
+        <tbody>
+          <tr data-mdl-data-table-selectable-name="materials[]" data-mdl-data-table-selectable-value="acrylic">
+            <td><h5>{{ venda.produto.nome }}</h5></td>
+            <td><h5>{{ venda.quantidade }}</h5></td>
+            <td><h5>{{ venda.produto.valor }}</h5></td>
+            <td><h5>{{ venda.valorparcela }}</h5></td>
+
+            <td>
+              <a href="{% url 'vendas_excluir' pk=venda.pk %}">
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                  Excluir
+                </button>
+              </a>
+            </td>
+
+            <td>
+              <a href="{% url 'vendas_pagar' pk=venda.pk %}">
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                  Pagar
+                </button>
+              </a>
+            </td>
+
+          </tr>
+        </tbody>
+  {% endfor %}
+  </table>
+
+  <div class="pagination">
+      <span class="step-links">
+          {% if vendas.has_previous %}
+              <a href="?page={{ vendas.previous_page_number }}">anterior</a>
+          {% endif %}
+
+          <span class="current">
+              Página {{ vendas.number }} de {{vendas.paginator.num_pages }}.
+          </span>
+
+          {% if vendas.has_next %}
+              <a href="?page={{ vendas.next_page_number }}">próxima</a>
+          {% endif %}
+      </span>
+  </div>
+</div>
+{% endblock %}

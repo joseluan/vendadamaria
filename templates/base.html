@@ -1,0 +1,138 @@
+{% load staticfiles %}
+<!doctype html>
+<!--
+  Material Design Lite
+  Copyright 2015 Google Inc. All rights reserved.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      https://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License
+-->
+<html lang="pt-br">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="A portfolio template that uses Material Design Lite.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+
+    <title>Venda da Maria</title>
+
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/material.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/material.css' %}" />
+    <link rel="stylesheet" href="{% static 'json/package.json' %}" />
+    <link rel="stylesheet" href="{% static 'json/bower.json' %}" />
+    <script language="JavaScript" src="{% static 'javascript/material.js' %}"></script>
+    <script language="JavaScript" src="{% static 'javascript/material.min.js' %}"></script>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.indigo-pink.min.css">
+    <script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.grey-pink.min.css" />
+
+    <style>
+    
+    footer {
+	  background-image: url({% static 'imagens/footer-background.png' %});
+	  background-size: cover;
+	}
+	.portfolio-header {
+	  position: relative;
+	  background-image: url({% static 'imagens/header-bg.jpg' %});
+	}
+	.portfolio-blog-card-full-bg {
+	  background: url({% static 'imagens/example-blog03.jpg' %}) center / cover;
+	}
+
+	.portfolio-blog-card-event-bg {
+	  background: url({% static 'imagens/example-blog05.jpg' %}) center / cover;
+	}
+
+	.portfolio-blog-card-strip-bg {
+	  background: url({% static 'imagens/example-blog06.jpg' %}) center / cover;
+	}
+	.portfolio-logo {
+	  background: url({% static 'imagens/logo.png' %}) 50% no-repeat;
+	  background-size: cover;
+	  height: 150px;
+	  width: 150px;
+	  margin: auto auto 10px;
+      margin-bottom: -5px;
+      margin-top: -5px;
+
+    }
+    h2#titulo{
+        color: #6f1b29;
+        font-size: 25 pt;
+        margin-bottom: -20px;
+        margin-top: -5px;
+    }
+    a#tituloprincipal{
+        text-decoration: none;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="mdl-layout mdl-js- layout mdl-layout--fixed-header">
+        <header class="mdl-layout__header mdl-layout__header--waterfall portfolio-header">
+            
+                <div class="mdl-layout__header-row portfolio-logo-row">
+                    <span class="mdl-layout__title">
+                        <a id="tituloprincipal" href="{% url 'index' %}">
+                            <div class="portfolio-logo"></div>
+                            <h2 id="titulo"><span class="">Venda da Maria</span></h2>
+                        </a>
+                    </span>
+                </div>
+            
+            <div class="mdl-layout__header-row portfolio-navigation-row mdl-layout--large-screen-only">
+                {% block menu %}
+                    
+                {% endblock %}
+
+            </div>
+        </header>
+<div class="mdl-layout__drawer mdl-layout--small-screen-only">
+    <nav class="mdl-navigation mdl-typography--body-1-force-preferred-font">
+        <a class="mdl-navigation__link is-active" href="{% url 'index' %}">Produtos</a>
+        <a class="mdl-navigation__link" href="{% url 'vendas' %}">Vendas</a>
+        <a class="mdl-navigation__link" href="{% url 'fornecedores' %}">Fornecedores</a>
+        <a class="mdl-navigation__link" href="{% url 'clientes' %}">Clientes</a>
+        <a class="mdl-navigation__link" href="{% url 'entrar' %}">Login</a>
+        <a class="mdl-navigation__link" href="{% url 'sair' %}">sair</a>
+    </nav>
+</div>
+
+        <main class="mdl-layout__content">
+            <div class="mdl-grid portfolio-max-width">
+                {% block conteudo %}
+	           {% endblock %}
+            </div>
+            <footer class="mdl-mini-footer">
+                <div class="mdl-mini-footer__left-section">
+                 Desenvolvido por <a href="https://github.com/joseluan" target="_blank">José Luan</a>
+                </div>
+                <div class="mdl-mini-footer__right-section">
+                    <ul class="mdl-mini-footer__link-list">
+                        <li><a href="{% url 'index' %}">inicio</a></li>
+                        <li>Feito em <a href="http://djangoproject.com" target="_blank">Django</a></li>
+                    </ul>
+                </div>
+            </footer>
+        </main>
+    </div>
+    <script src="{% static 'javascript/material.min.js' %}"></script>
+</body>
+
+</html>

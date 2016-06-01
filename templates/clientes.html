@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block menu %}
+                <nav class="mdl-navigation mdl-typography--body-1-force-preferred-font">
+                    <a class="mdl-navigation__link" href="{% url 'index' %}">Produtos</a>
+                    <a class="mdl-navigation__link" href="{% url 'vendas' %}">Vendas</a>
+                    <a class="mdl-navigation__link" href="{% url 'fornecedores' %}">Fornecedores</a>
+                    <a class="mdl-navigation__link is-active" href="{% url 'clientes' %}">Clientes</a>
+                    <a class="mdl-navigation__link" href="{% url 'entrar' %}">Login</a>
+                    <a class="mdl-navigation__link" href="{% url 'sair' %}">sair</a>
+                </nav>
+{% endblock %}
+
+{% block conteudo %}
+
+    <style type="text/css" media="screen">
+        div#produto{
+            width: 150%;
+            margin-left: 25%;
+            margin-right: 0px;
+        }
+        a#adicionar{
+            position: fixed;
+            left: 93%;
+            top: 80%;
+        }
+    </style>
+  
+    <a id="adicionar" href="{% url 'adicionar_cliente' %}">
+        <!-- Colored FAB button with ripple -->
+        <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
+          <i class="material-icons">+</i>
+        </button>
+    </a>  
+    <a href="{% url 'adicionar_email' %}">
+        <button  class="mdl-button mdl-js-button mdl-js-ripple-effect">
+            Adicionar Email
+        </button>
+    </a>
+    <a href="{% url 'adicionar_documento' %}">
+        <button  class="mdl-button mdl-js-button mdl-js-ripple-effect">
+            Adicionar Documento
+        </button>
+    </a>
+    <a href="{% url 'adicionar_endereco' %}">
+        <button  class="mdl-button mdl-js-button mdl-js-ripple-effect">
+            Adicionar Endereço
+        </button>
+    </a>
+
+<div id="conteudo">
+
+  <h4>Emails:</h4><br>
+
+  <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable">
+        <thead>
+          <tr>
+            <th><h4>Email</h4></th>
+            <th><h4></h4></th>
+          </tr>
+        </thead>
+  {% for email in emails %}
+        <tbody>
+          <tr data-mdl-data-table-selectable-name="materials[]" data-mdl-data-table-selectable-value="acrylic">
+            <td><h5>{{ email.descricao }}</h5></td>
+          </tr>
+        </tbody>
+  {% endfor %}
+  </table>
+
+  <h4>Documentos:</h4><br>
+
+  <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable">
+        <thead>
+          <tr>
+            <th><h4>Tipo</h4></th>
+            <th><h4>Número</h4></th>
+            <th><h4>Emissão</h4></th>
+          </tr>
+        </thead>
+  {% for documento in documentos %}
+        <tbody>
+          <tr data-mdl-data-table-selectable-name="materials[]" data-mdl-data-table-selectable-value="acrylic">
+            <td><h5>{{ documento.tipo }}</h5></td>
+            <td><h5>{{ documento.numero }}</h5></td>
+            <td><h5>{{ documento.emissao.date }}</h5></td>
+          </tr>
+        </tbody>
+  {% endfor %}
+  </table>
+
+  <h4>Endereços:</h4><br>
+
+  <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable">
+        <thead>
+          <tr>
+            <th><h4>CEP</h4></th>
+            <th><h4>Tipo</h4></th>
+            <th><h4>Descrição</h4></th>
+            <th><h4>Número</h4></th>
+          </tr>
+        </thead>
+  {% for endereco in enderecos %}
+        <tbody>
+          <tr data-mdl-data-table-selectable-name="materials[]" data-mdl-data-table-selectable-value="acrylic">
+            <td><h5>{{ endereco.cep }}</h5></td>
+            <td><h5>{{ endereco.tipo }}</h5></td>
+            <td><h5>{{ endereco.descricao }}</h5></td>
+            <td><h5>{{ endereco.numero }}</h5></td>
+          </tr>
+        </tbody>
+  {% endfor %}
+  </table>
+</div>
+
+{% endblock %}

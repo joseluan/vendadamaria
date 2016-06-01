@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block menu %}
+                <nav class="mdl-navigation mdl-typography--body-1-force-preferred-font">
+                    <a class="mdl-navigation__link" href="{% url 'index' %}">Produtos</a>
+                    <a class="mdl-navigation__link" href="{% url 'vendas' %}">Vendas</a>
+                    <a class="mdl-navigation__link  is-active" href="{% url 'fornecedores' %}">Fornecedores</a>
+                    <a class="mdl-navigation__link" href="{% url 'clientes' %}">Clientes</a>
+                    <a class="mdl-navigation__link" href="{% url 'entrar' %}">Login</a>
+                    <a class="mdl-navigation__link" href="{% url 'sair' %}">sair</a>
+                </nav>
+{% endblock %}
+
+{% block conteudo %}
+  <form class="ui form" action="" method="post" id="form" role="form">
+  {% csrf_token %}
+    <div>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="usuario">
+                <input class="mdl-textfield__input" type="text" id="tipo" name="tipo" maxlength="15">
+                <label class="mdl-textfield__label" for="sample3">Tipo</label>
+            </div><br>
+
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="usuario">
+                <input class="mdl-textfield__input" type="number" id="numero" name="numero" max="9999999999999" min="0" maxlength="15" pattern="-?[0-9]*(\.[0-9]+)?">
+                <label class="mdl-textfield__label" for="sample3">Número</label>
+            </div><br>
+
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="email">
+                <input class="mdl-textfield__input" type="date" name="emissao" id="emissao" size="15" maxlength="20" placeholder="dia / mês / ano"/ pattern="-?[0-9]*(\.[0-9]+)?"></p>
+                <label class="mdl-textfield__label" for="sample4">emissão</label>
+            </div><br>
+
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="email">
+                <input class="mdl-textfield__input" type="date" name="vencimento" id="vencimento" size="15" maxlength="20" placeholder="dia / mês / ano" pattern="-?[0-9]*(\.[0-9]+)?"/></p>
+                <label class="mdl-textfield__label" for="sample4">Vencimento</label>
+            </div><br>
+
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="submit">
+              Adicionar
+            </button>
+
+    </div>
+  </form>
+
+{% endblock %}
